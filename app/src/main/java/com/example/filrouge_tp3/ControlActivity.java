@@ -47,6 +47,8 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
     private Screen5Fragment screen5;
     private IssueManager issueManager;
     private IssueController issueController;
+    private Issue currentSelectedIssue;
+
 
 
     @Override
@@ -98,6 +100,9 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
     @Override
     public void onPictureTaken(String photoPath) {
         Log.d(TAG, "Photo reçue : " + photoPath);
+        if (currentSelectedIssue != null) {
+            currentSelectedIssue.setPicture(photoPath); // Met à jour le modèle
+        }
     }
 
     @Override
@@ -142,6 +147,7 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
         } else if (numFragment == Screen2Fragment.FRAGMENT_ID
                 && actionCode == Screen2Fragment.ACTION_CLICK_ITEM) {
             Issue issue = (Issue) data;
+            currentSelectedIssue = issue;
             IssueManager.getInstance().addReportedIssue(issue);
             navigateToFragment(Screen5Fragment.FRAGMENT_ID);
 

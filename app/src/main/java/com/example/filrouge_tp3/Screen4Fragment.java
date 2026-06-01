@@ -1,7 +1,6 @@
 package com.example.filrouge_tp3;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -77,7 +75,7 @@ public class Screen4Fragment extends Fragment {
 
         final Issue issue = currentIssue;
 
-        view.findViewById(R.id.imagePlaceholder).setOnClickListener(v -> {
+        view.findViewById(R.id.issuePhoto).setOnClickListener(v -> {
             String existingPath = (issue != null) ? issue.getPicture() : null;
             CameraFragment cam = CameraFragment.newInstance(existingPath);
             requireActivity().getSupportFragmentManager().beginTransaction()

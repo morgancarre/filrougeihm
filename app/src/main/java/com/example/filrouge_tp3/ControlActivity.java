@@ -132,7 +132,11 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
     public void onDataChange(int numFragment, Object data, int actionCode, Object argsAction) {
         Log.d(TAG, "received data from fragment#" + numFragment + " actionCode=" + actionCode);
 
-        if (numFragment == Screen2Fragment.FRAGMENT_ID
+        if (numFragment == Screen4Fragment.FRAGMENT_ID
+                && actionCode == Screen4Fragment.ACTION_VIEW_MAP) {
+            navigateToFragment(Screen5Fragment.FRAGMENT_ID);
+
+        } else if (numFragment == Screen2Fragment.FRAGMENT_ID
                 && actionCode == Screen2Fragment.ACTION_CLICK_ITEM) {
             Issue issue = (Issue) data;
             IssueManager.getInstance().addReportedIssue(issue);
@@ -148,7 +152,11 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
             String protocol = (String) argsAction;
             Log.d(TAG, "Nouveau signalement : " + newIssue.getTitle() + " | Protocole : " + protocol);
             IssueManager.getInstance().addReportedIssue(newIssue);
-            navigateToFragment(Screen5Fragment.FRAGMENT_ID);
+            Screen4Fragment detailFragment = Screen4Fragment.newInstance(newIssue);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_main, detailFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     }
 

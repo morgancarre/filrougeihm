@@ -108,6 +108,7 @@
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <TimePicker
+            android:id="@+id/timePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"/>

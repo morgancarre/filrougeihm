@@ -44,6 +44,9 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
     private boolean isStarting = true;
     private Fragment[] tabFragments;
     private int menuNumber;
+    private Screen5Fragment screen5;
+    private IssueManager issueManager;
+    private IssueController issueController;
 
 
     @Override
@@ -51,9 +54,9 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
 
-        IssueManager issueManager = IssueManager.getInstance();
-        IssueController issueController = new IssueController(issueManager);
-        Screen5Fragment screen5 = Screen5Fragment.newInstance(issueManager, issueController);
+        issueManager = IssueManager.getInstance();
+        issueController = new IssueController(issueManager);
+        screen5 = Screen5Fragment.newInstance(issueManager, issueController);
         issueManager.addView(screen5);
 
         tabFragments = new Fragment[]{ new Screen1Fragment(), new Screen2Fragment(),
@@ -132,11 +135,8 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
         if (numFragment == Screen2Fragment.FRAGMENT_ID
                 && actionCode == Screen2Fragment.ACTION_CLICK_ITEM) {
             Issue issue = (Issue) data;
-            Screen4Fragment detailFragment = Screen4Fragment.newInstance(issue);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_main, detailFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            IssueManager.getInstance().addReportedIssue(issue);
+            navigateToFragment(Screen5Fragment.FRAGMENT_ID);
 
         } else if (numFragment == Screen2Fragment.FRAGMENT_ID
                 && actionCode == Screen2Fragment.ACTION_RATING_CHANGE) {
@@ -147,17 +147,37 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
             Issue newIssue = (Issue) data;
             String protocol = (String) argsAction;
             Log.d(TAG, "Nouveau signalement : " + newIssue.getTitle() + " | Protocole : " + protocol);
-
-            Screen4Fragment detailFragment = Screen4Fragment.newInstance(newIssue);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_main, detailFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            IssueManager.getInstance().addReportedIssue(newIssue);
+            navigateToFragment(Screen5Fragment.FRAGMENT_ID);
         }
     }
 
 
 
+
+    private void navigateToFragment(int index) {
+        menuNumber = index;
+        menu.setCurrentActivatedIndex(menuNumber);
+
+        if (index == Screen5Fragment.FRAGMENT_ID) {
+            issueManager.removeView(screen5);
+            screen5 = Screen5Fragment.newInstance(issueManager, issueController);
+            issueManager.addView(screen5);
+            tabFragments[index] = screen5;
+        }
+
+        mainFragment = tabFragments[index];
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_main, mainFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        issueManager.removeView(screen5);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

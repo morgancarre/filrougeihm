@@ -8,6 +8,7 @@ public class IssueManager implements ModelObservable {
     private static IssueManager instance;
 
     private final List<Issue> issues = new ArrayList<>();
+    private final List<Issue> reportedIssues = new ArrayList<>();
     private final List<ViewObserver> views = new ArrayList<>();
 
     private IssueManager() {
@@ -41,6 +42,17 @@ public class IssueManager implements ModelObservable {
 
     public List<Issue> getIssues() {
         return issues;
+    }
+
+    public List<Issue> getReportedIssues() {
+        return reportedIssues;
+    }
+
+    public void addReportedIssue(Issue issue) {
+        if (!reportedIssues.contains(issue)) {
+            reportedIssues.add(issue);
+            notifyViews();
+        }
     }
 
     public void setLocation(Issue issue, double lat, double lon) {

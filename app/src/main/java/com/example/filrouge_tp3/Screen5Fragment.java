@@ -127,7 +127,7 @@ public class Screen5Fragment extends Fragment implements ViewObserver {
             }
         });
 
-        for (Issue issue : model.getIssues()) {
+        for (Issue issue : model.getReportedIssues()) {
             Marker marker = new Marker(mapView);
             marker.setPosition(issue.getGeolocation());
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -143,7 +143,7 @@ public class Screen5Fragment extends Fragment implements ViewObserver {
 
     private void refreshList() {
         displayList.clear();
-        for (Issue issue : model.getIssues()) {
+        for (Issue issue : model.getReportedIssues()) {
             displayList.add(String.format("%s (%.4f, %.4f)",
                     issue.getTitle(), issue.getLatitude(), issue.getLongitude()));
         }
@@ -153,7 +153,7 @@ public class Screen5Fragment extends Fragment implements ViewObserver {
     @Override
     public void onModelChanged(IssueManager model) {
         this.model = model;
-        if (mapView != null) {
+        if (isAdded() && mapView != null) {
             refreshMap();
             refreshList();
         }
@@ -169,5 +169,11 @@ public class Screen5Fragment extends Fragment implements ViewObserver {
     public void onPause() {
         super.onPause();
         if (mapView != null) mapView.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mapView = null;
     }
 }

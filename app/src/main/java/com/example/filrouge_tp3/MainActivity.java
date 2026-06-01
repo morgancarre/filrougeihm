@@ -8,8 +8,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import android.util.Log;
 
 /**
  * This application has two activities:
@@ -55,15 +53,6 @@ public class MainActivity extends AppCompatActivity {
                     .show();
         });
 
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.d(TAG, "Fetching FCM registration token failed", task.getException());
-                return;
-            } else {
-                String token = task.getResult();
-                Log.d(TAG, "Token Firebase : " + token);
-            }
-        });
     }
 
 }

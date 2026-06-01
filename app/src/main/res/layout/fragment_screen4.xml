@@ -144,23 +144,11 @@
             android:textAllCaps="true"
             android:layout_marginBottom="4dp"/>
 
-        <ImageView
-            android:id="@+id/issuePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:background="#663d3d3d"
-            android:layout_marginBottom="4dp"/>
-
-        <Button
-            android:id="@+id/btnPickPhoto"
+        <FrameLayout
+            android:id="@+id/cameraFragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Choisir une photo"
-            android:backgroundTint="#663d3d3d"
-            android:textColor="@color/white"
-            android:layout_marginBottom="16dp"
-            app:cornerRadius="8dp"/>
+            android:layout_marginBottom="16dp"/>
 
         <!-- ===== SECTION POSITION ===== -->
         <TextView

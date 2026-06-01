@@ -66,8 +66,6 @@ public class Screen4Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_screen4, container, false);
 
-        photoView = view.findViewById(R.id.issuePhoto);
-
         Issue currentIssue = null;
         if (getArguments() != null && getArguments().containsKey(ARG_ISSUE)) {
             currentIssue = getArguments().getParcelable(ARG_ISSUE);
@@ -75,14 +73,14 @@ public class Screen4Fragment extends Fragment {
 
         final Issue issue = currentIssue;
 
-        view.findViewById(R.id.issuePhoto).setOnClickListener(v -> {
+        if (savedInstanceState == null) {
             String existingPath = (issue != null) ? issue.getPicture() : null;
             CameraFragment cam = CameraFragment.newInstance(existingPath);
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_main, cam)
-                    .addToBackStack(null)
+
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.cameraFragmentContainer, cam)
                     .commit();
-        });
+        }
 
         if (issue != null) {
             ((TextView) view.findViewById(R.id.issueTitle)).setText(issue.getTitle());
@@ -110,11 +108,6 @@ public class Screen4Fragment extends Fragment {
             TextInputEditText lonInput = view.findViewById(R.id.lonInput);
             if (issue.getLatitude() != 0.0) latInput.setText(String.valueOf(issue.getLatitude()));
             if (issue.getLongitude() != 0.0) lonInput.setText(String.valueOf(issue.getLongitude()));
-
-            // Bouton photo
-            view.findViewById(R.id.btnPickPhoto).setOnClickListener(v ->
-                    pickImageLauncher.launch("image/*")
-            );
 
             TextView positionStatus = view.findViewById(R.id.positionStatus);
 

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Fil rouge vide</string>
+    <string name="language">french</string>
+    <string name="MainFragment_content">this app automatically inflates by Android system because this Fragment is static</string>
+    <string name="Screen1Fragment_label">Main Fragment</string>
+    <string name="content6">awsome team</string>
+    <string name="content2">Je choisis ici les parsonnages que je veux afficher en fonction de leur note</string>
+    <string name="index">index</string>
+    <string name="seekbarvalue">seekBarValue</string>
+    <string name="tanquinstate">tanquinstate</string>
+    <string name="character">valorantCharacter</string>
+    <string name="size">size</string>
+    <string name="characterlist">characterList</string>
+    <string name="data">data</string>
+    <string name="filtervalue">filterValue</string>
+</resources>

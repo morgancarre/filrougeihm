@@ -1,0 +1,29 @@
+# Android/Gradle
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cname
+*.apk
+*.aab
+*.ap_
+*.dex
+bin/
+gen/
+out/
+release/
+
+# Module build dirs
+app/build/
+build/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (can contain API keys)
+google-services.json

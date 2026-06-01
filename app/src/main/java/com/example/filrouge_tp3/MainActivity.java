@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
@@ -39,9 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
         //option button
         findViewById(R.id.option).setOnClickListener(clic -> {
-            Intent intent = new Intent(getApplicationContext(), ControlActivity.class);
-            intent.putExtra(getString(R.string.index), 4);
-            startActivity(intent);
+            String[] choix = {"Signalement rapide", "Signalement détaillé"};
+            new AlertDialog.Builder(this)
+                    .setTitle("Signaler")
+                    .setItems(choix, (dialog, which) -> {
+                        int index = (which == 0) ? 1 : 2;
+                        Intent intent = new Intent(getApplicationContext(), ControlActivity.class);
+                        intent.putExtra(getString(R.string.index), index);
+                        startActivity(intent);
+                    })
+                    .show();
         });
     }
 

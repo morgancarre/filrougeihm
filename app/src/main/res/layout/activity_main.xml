@@ -62,7 +62,7 @@
         android:id="@+id/option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="option1"
+        android:text="Signaler"
         app:layout_constraintBottom_toBottomOf="@id/goDefault"
         app:layout_constraintStart_toEndOf="@id/goDefault"
         app:layout_constraintEnd_toEndOf="parent" />

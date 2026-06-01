@@ -14,13 +14,31 @@
         android:src="@drawable/camera_icon"
         android:contentDescription="Photo de l'incident"/>
 
-    <Button
-        android:id="@+id/btnTakePhoto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#663d3d3d"
-        android:textColor="@color/white"
-        android:text="📷 Prendre une photo"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#663d3d3d"
+            android:textColor="@color/white"
+            android:text="📷 Prendre"/>
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="#663d3d3d"
+            android:textColor="@color/white"
+            android:text="🖼️ Galerie"/>
+    </LinearLayout>
 
 </LinearLayout>

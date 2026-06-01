@@ -80,6 +80,17 @@ public class CameraFragment extends Fragment {
                 }
             });
 
+    private final ActivityResultLauncher<String> galleryLauncher =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) {
+                    currentPhotoPath = uri.toString();
+                    displayPhoto(currentPhotoPath);
+                    if (picturable != null) {
+                        picturable.onPictureTaken(currentPhotoPath);
+                    }
+                }
+            });
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -110,6 +121,9 @@ public class CameraFragment extends Fragment {
         }
 
         view.findViewById(R.id.btnTakePhoto).setOnClickListener(v -> checkPermissionAndLaunch());
+        view.findViewById(R.id.btnGallery).setOnClickListener(v ->
+                galleryLauncher.launch("image/*")
+        );
 
         getParentFragmentManager().setFragmentResultListener(CHANNEL_PICTURE, getViewLifecycleOwner(),
                 (requestKey, result) -> {

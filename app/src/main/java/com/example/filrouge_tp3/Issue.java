@@ -19,6 +19,7 @@ public abstract class Issue implements Parcelable, IssueObservable {
     private float status;
     private double latitude;
     private double longitude;
+    private String time;
     private transient List<IssueObserver> observers = new ArrayList<>();
 
     public Issue(String title, String description, Priority priority) {
@@ -28,6 +29,7 @@ public abstract class Issue implements Parcelable, IssueObservable {
         this.status = 0f;
         this.latitude = 0.0;
         this.longitude = 0.0;
+        this.time = "";
         this.observers = new ArrayList<>();
     }
 
@@ -40,6 +42,7 @@ public abstract class Issue implements Parcelable, IssueObservable {
         status = in.readFloat();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        time = in.readString();
     }
 
     public String getPicture() { return picture; }
@@ -58,6 +61,7 @@ public abstract class Issue implements Parcelable, IssueObservable {
         dest.writeFloat(status);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeString(time != null ? time : "");
     }
 
     @Override
@@ -103,6 +107,8 @@ public abstract class Issue implements Parcelable, IssueObservable {
     // Getters / Setters
     public String getTitle() { return title; }
     public String getDescription() { return description; }
+    public String getTime() { return time != null ? time : ""; }
+    public void setTime(String time) { this.time = time; }
     public Priority getPriority() { return priority; }
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }

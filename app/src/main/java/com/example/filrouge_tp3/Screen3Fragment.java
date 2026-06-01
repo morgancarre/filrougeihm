@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -71,6 +72,8 @@ public class Screen3Fragment extends Fragment {
 
         EditText titleInput       = view.findViewById(R.id.titleInput);
         EditText descriptionInput = view.findViewById(R.id.descriptionInput);
+        TimePicker timePicker     = view.findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
         MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleEnvironment);
 
         TextInputLayout tileTitle = view.findViewById(R.id.tileTitle);
@@ -97,10 +100,11 @@ public class Screen3Fragment extends Fragment {
                 return;
             }
 
-            // Le fragment délègue la création à la factory — il ne connaît pas HighwayIssue ni UrbanIssue
             Issue newIssue = selectedFactory.createIssue(title, description);
 
-            // Notifier l'activité avec l'issue et son protocole de sécurité
+            String time = String.format("%02d:%02d", timePicker.getHour(), timePicker.getMinute());
+            newIssue.setTime(time);
+
             notifiable.onDataChange(
                     FRAGMENT_ID,
                     newIssue,

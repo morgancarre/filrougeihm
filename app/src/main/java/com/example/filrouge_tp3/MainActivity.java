@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //default button
         findViewById(R.id.goDefault).setOnClickListener(clic -> {
             Intent intent = new Intent(getApplicationContext(), ControlActivity.class);
-            intent.putExtra(getString(R.string.index), 0);
+            intent.putExtra(getString(R.string.index), 4);
             startActivity(intent);
         });
 

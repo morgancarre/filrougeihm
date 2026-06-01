@@ -10,6 +10,7 @@ public class IssueManager implements ModelObservable {
     private final List<Issue> issues = new ArrayList<>();
     private final List<Issue> reportedIssues = new ArrayList<>();
     private final List<ViewObserver> views = new ArrayList<>();
+    private Issue lastReportedIssue;
 
     private IssueManager() {
         createIssues();
@@ -48,7 +49,10 @@ public class IssueManager implements ModelObservable {
         return reportedIssues;
     }
 
+    public Issue getLastReportedIssue() { return lastReportedIssue; }
+
     public void addReportedIssue(Issue issue) {
+        lastReportedIssue = issue;
         if (!reportedIssues.contains(issue)) {
             reportedIssues.add(issue);
             notifyViews();

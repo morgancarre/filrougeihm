@@ -50,9 +50,23 @@ public class Screen4Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_screen4, container, false);
 
+        Issue currentIssue = null;
         if (getArguments() != null && getArguments().containsKey(ARG_ISSUE)) {
-            Issue issue = getArguments().getParcelable(ARG_ISSUE);
+            currentIssue = getArguments().getParcelable(ARG_ISSUE);
+        }
 
+        final Issue issue = currentIssue;
+
+        view.findViewById(R.id.imagePlaceholder).setOnClickListener(v -> {
+            String existingPath = (issue != null) ? issue.getPicture() : null;
+            CameraFragment cam = CameraFragment.newInstance(existingPath);
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_main, cam)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        if (issue != null) {
             ((TextView) view.findViewById(R.id.issueTitle)).setText(issue.getTitle());
             ((TextView) view.findViewById(R.id.issueDescription)).setText(issue.getDescription());
             ((TextView) view.findViewById(R.id.issueProtocol)).setText(issue.getSafetyProtocol());

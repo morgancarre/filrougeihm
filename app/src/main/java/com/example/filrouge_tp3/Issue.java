@@ -14,6 +14,7 @@ public abstract class Issue implements Parcelable, IssueObservable {
 
     private String title;
     private String description;
+    private String picture;
     private Priority priority;
     private float status;
     private double latitude;
@@ -34,16 +35,25 @@ public abstract class Issue implements Parcelable, IssueObservable {
     protected Issue(Parcel in) {
         title = in.readString();
         description = in.readString();
+        picture = in.readString();
         priority = Priority.valueOf(in.readString());
         status = in.readFloat();
         latitude = in.readDouble();
         longitude = in.readDouble();
     }
 
+    public String getPicture() { return picture; }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+        notifyObservers();
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
+        dest.writeString(picture != null ? picture : "");
         dest.writeString(priority.name());
         dest.writeFloat(status);
         dest.writeDouble(latitude);

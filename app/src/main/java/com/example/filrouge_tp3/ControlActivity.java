@@ -35,7 +35,7 @@ import java.util.ArrayList;
  * @see Menuable
  * @see Notifiable
  */
-public class ControlActivity extends AppCompatActivity implements Menuable, Notifiable {
+public class ControlActivity extends AppCompatActivity implements Menuable, Notifiable, Picturable {
     private static final String DATA_IS_STARTING = "sauvegarde";
     private static final String DATA_MENU_NUMBER = "num";
     private final String TAG = "frallo "+getClass().getSimpleName();
@@ -95,7 +95,10 @@ public class ControlActivity extends AppCompatActivity implements Menuable, Noti
     }
 
 
-
+    @Override
+    public void onPictureTaken(String photoPath) {
+        Log.d(TAG, "Photo reçue : " + photoPath);
+    }
 
     @Override
     public void onMenuChange(int index) {

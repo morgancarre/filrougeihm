@@ -38,7 +38,7 @@
             android:id="@+id/labelScreen1Fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="DEL THAT IN JAVA CODE"
+            android:text="@string/mainfragment"
             android:background="#38A5DFFD"
             android:textColor="@color/white"
             android:textSize="28sp"

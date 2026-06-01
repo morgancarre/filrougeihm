@@ -29,7 +29,7 @@
             android:id="@+id/labelScreen2Fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="fragment 2"
+            android:text="@string/signalementrapide"
             android:background="#38A5DFFD"
             android:textColor="@color/white"
             android:textSize="36sp"

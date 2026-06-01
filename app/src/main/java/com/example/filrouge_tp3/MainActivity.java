@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView image = findViewById(R.id.imageView);
-        image.setBackgroundResource(R.drawable.rotation_animation);
+        image.setBackgroundResource(R.drawable.incident_animation);
         AnimationDrawable animation = (AnimationDrawable)image.getBackground();
         animation.start();
 
